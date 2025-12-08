@@ -1,6 +1,8 @@
 "use client"
 
 import type React from "react"
+import { useToast } from "@/components/ui/use-toast"
+
 
 import { useState } from "react"
 import { Mail, Phone, MapPin, Send, Github, Linkedin } from "lucide-react"
@@ -38,16 +40,49 @@ export default function ContactSection() {
     message: "",
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const { toast } = useToast()
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setIsSubmitting(true)
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 1000))
-    alert("Message sent! Thank you for reaching out.")
-    setFormData({ name: "", email: "", message: "" })
-    setIsSubmitting(false)
+const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault()
+  setIsSubmitting(true)
+
+  try {
+    const res = await fetch("/api/contact", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    })
+
+    const data = await res.json()
+
+    if (data.success) {
+      toast({
+        title: "Message Sent 🎉",
+        description: "Thank you for reaching out! I’ll get back to you shortly.",
+      })
+
+      setFormData({ name: "", email: "", message: "" })
+    } else {
+      toast({
+        title: "Something went wrong",
+        description: "Please try again.",
+        variant: "destructive",
+      })
+    }
+  } catch (error) {
+    toast({
+      title: "Error",
+      description: "Failed to send message. Please try again later.",
+      variant: "destructive",
+    })
   }
+
+  setIsSubmitting(false)
+}
+
+
 
   return (
     <section id="contact" className="py-20 relative">
