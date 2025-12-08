@@ -11,23 +11,23 @@ export const metadata: Metadata = {
   title: "Himanshu Raj | Full-Stack Developer",
   description:
     "B.Tech CSE student passionate about full-stack development. Skilled in React, Next.js, Node.js, MongoDB.",
-  generator: "v0.app",
+  generator: "next.js",
   icons: {
     icon: [
       {
-        url: "/icon-light-32x32.png",
+        url: "/portfolioicon.jpg",
         media: "(prefers-color-scheme: light)",
       },
       {
-        url: "/icon-dark-32x32.png",
+        url: "/portfolioicon.jpg",
         media: "(prefers-color-scheme: dark)",
       },
       {
-        url: "/icon.svg",
+        url: "/portfolioicon.jpg",
         type: "image/svg+xml",
       },
     ],
-    apple: "/apple-icon.png",
+    apple: "/portfolioicon.jpg",
   },
 }
 
